@@ -28,7 +28,6 @@ app.use(express.json());
 //TODO: Definir routes
 //? EJEMPLO app.use("/api", require("./routes/route_bank"));
 
-//TODO: Inicializacion del contexto
 var sequelize = require('./models/sequelize');
 
 //ficheros estaticos
@@ -48,6 +47,8 @@ http.listen(app.get('port'), () => {
 
 startServer = async () => {
   const result = await sequelize.Autenticate();
+
+  //TODO: Implementar en caso de que no se pueda Auteticar entonces Crear la base de datos
   // const response = await sequelize_context.Autenticate();
   // if (!response) await sequelize_context.CreateDatabaseIfNotExists();
   // await sequelize_context.CreateDatabaseIfNotExists();
