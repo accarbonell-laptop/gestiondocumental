@@ -1,22 +1,20 @@
 'use strict';
 
-import { GetDateFromMoment } from './dates';
+const { GetDateFromMoment } = require('./dates');
 
-export function ConsolaLog(msg) {
+exports.ConsolaLog = (msg) => {
   console.log(GetDateFromMoment(), ': Log ->', msg);
-}
-export function ConsolaError(msg) {
+};
+exports.ConsolaError = (msg) => {
   console.error(GetDateFromMoment(), ': Error ->', msg);
-}
-export function ConsolaInfo(msg) {
+};
+exports.ConsolaInfo = (msg) => {
   console.info(GetDateFromMoment(), ': Info ->', msg);
-}
+};
 
-export function IsObjectEmpty(object) {
-  return Object.keys(object).length === 0 && object.constructor === Object;
-}
+exports.IsObjectEmpty = (object) => Object.keys(object).length === 0 && object.constructor === Object;
 
-export function GroupBy(key) {
+exports.GroupBy = (key) => {
   return function group(array) {
     return array.reduce((acc, obj) => {
       const property = obj[key];
@@ -25,4 +23,4 @@ export function GroupBy(key) {
       return acc;
     }, {});
   };
-}
+};

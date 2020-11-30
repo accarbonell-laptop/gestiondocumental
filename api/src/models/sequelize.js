@@ -1,25 +1,25 @@
 'use strict';
 
-import { Sequelize } from 'sequelize';
-
-import { ConsolaInfo, ConsolaError } from '../utils/tools';
+const { Sequelize } = require('sequelize');
+var { ConsolaError, ConsolaInfo } = require('../utils/tools');
+const tedious = require('tedious');
 
 //Passing parameters separately (other dialects: one of 'mysql' | 'mariadb' | 'postgres' | 'mssql')
 const sequelize_context = new Sequelize(
-  process.env.DB_SCHEMAS || 'gestiondocumental',
-  process.env.DB_USER || '',
-  process.env.DB_PASSWORD || '',
+  process.env.DB_SCHEMA || 'gestiondocumental',
+  process.env.DB_USER || 'sa',
+  process.env.DB_PASSWORD || '$ql-2008-SCU/*-',
   {
     host: process.env.DB_HOST || '127.0.0.1',
     port: process.env.DB_PORT || '1433',
     dialect: 'mssql',
-    operatorsAliases: false,
-    pool: {
-      max: 30,
-      min: 20,
-      acquire: 30000,
-      idle: 10000
-    },
+    // operatorsAliases: false,
+    // pool: {
+    //   max: 30,
+    //   min: 20,
+    //   acquire: 30000,
+    //   idle: 10000
+    // },
     logging: true
     // dialectOptions: {
     //   // useUTC: false, // for reading from database
@@ -35,6 +35,7 @@ const sequelize_context = new Sequelize(
     // timezone: '-04:00' // for writing to database
   }
 );
+
 // Choose one of the logging options
 // logging: console.log,                  // Default, displays the first parameter of the log function call
 // logging: (...msg) => console.log(msg), // Displays all log function call parameters
@@ -43,47 +44,29 @@ const sequelize_context = new Sequelize(
 // logging: logger.debug.bind(logger)     // Alternative way to use custom logger, displays all messages
 
 //Retorna el Conexto de Datos
-export function GetContext() {
-  return sequelize_context;
-}
+exports.GetContext = () => sequelize_context;
 
 //TODO: Crea la base de datos si no existe con el TEDIOUS(buscar en documentacion) https://tediousjs.github.io/tedious/
-export async function CreateDatabaseIfNotExists() {
+exports.CreateDatabaseIfNotExists = async () => {
   try {
-    const Connection = require('tedious').Connection;
-    //configurar el json y pasarlo a la conexion
-    const config = {
-      authentication: {
-        server: process.env.DB_HOST || '127.0.0.1'
-        //puerto, usuario, contraseña
-        // "options": {...}
-      }
+    const dbName = process.env.DB_SCHEMA || 'gestiondocumental';
+    const mssql = await this.MSSQLConnection();
 
-      // "options": {
-      //   ...
-      // }
-    };
-    const mssql = new Connection(config);
-
-    const dbName = process.env.DB_SCHEMAS || 'gestiondocumental';
-    mssql.execSql(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
-
-    // const connection = await mysql.createConnection({
-    //   host: process.env.DB_HOST || '127.0.0.1',
-    //   port: process.env.DB_PORT || '1433',
-    //   user: process.env.DB_USER || '',
-    //   password: process.env.DB_PASSWORD || ''
-    // });
-    // const res = await connection.query();
-    ConsolaInfo('Database created...');
-    await this.Autenticate();
+    // mssql.execSql(`
+    // IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '${dbName}')
+    //   BEGIN
+    //     CREATE DATABASE ${dbName}
+    //   END
+    // `);
+    // ConsolaInfo('Database has been created...');
+    // await this.Autenticate();
   } catch (error) {
     ConsolaError('Database can not be create or checked: ' + error);
   }
-}
+};
 
 //Autenticar el Modelo para Probar la conexión
-export async function Autenticate() {
+exports.Autenticate = async () => {
   try {
     await sequelize_context.authenticate();
     await sequelize_context.sync();
@@ -93,24 +76,24 @@ export async function Autenticate() {
     ConsolaError('Unable to connect to the database: ' + error);
     return false;
   }
-}
+};
 
 //Sincronizar el Modelo
-export async function SyncCompleteModel() {
+exports.SyncCompleteModel = async () => {
   try {
     await sequelize_context.sync();
     ConsolaInfo('All models were synchronized successfully.');
   } catch (error) {
     ConsolaError('All models can not be synchronized: ' + error);
   }
-}
+};
 
 //Eliminar todas las tablas de la Base de Datos
-export async function DropAllTables() {
+exports.DropAllTables = async () => {
   try {
     await sequelize_context.drop();
     ConsolaInfo('All tables dropped!');
   } catch (error) {
     ConsolaError('All tables can not be dropped:' + error);
   }
-}
+};

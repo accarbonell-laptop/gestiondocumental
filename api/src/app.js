@@ -1,8 +1,10 @@
-'use strict';
+require('dotenv').config();
 
-import express, { urlencoded, json } from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
+var express = require('express');
+var cors = require('cors');
+var morgan = require('morgan');
+
+const { ConsolaError, ConsolaLog } = require('./utils/tools');
 
 //creando la app de express
 const app = express();
@@ -19,15 +21,15 @@ app.set('json spaces', 2); //setearle a los JSON que recibe dos espacios
 //uso de middlewares
 app.use(morgan('dev'));
 app.use(cors());
-app.use(urlencoded({ extended: false }));
-app.use(json());
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 //TODO: Definir routes
 //? EJEMPLO app.use("/api", require("./routes/route_bank"));
 
 //TODO: Inicializacion del contexto
-//? var sequelize_context = require("./models/sequelize");
-import { ConsolaLog, ConsolaError } from './utils/tools';
+var sequelize = require('./models/sequelize');
 
 //ficheros estaticos
 ConsolaLog(__dirname);
@@ -36,14 +38,17 @@ ConsolaLog(__dirname);
 http.listen(app.get('port'), () => {
   try {
     const server = process.env.HOST || 'localhost';
-    ConsolaLog('Server Started: https://' + server + ':' + app.get('port'));
     startServer();
+
+    ConsolaLog('Server Started: https://' + server + ':' + app.get('port'));
   } catch (error) {
     ConsolaError(error);
   }
 });
 
 startServer = async () => {
-  const response = await sequelize_context.Autenticate();
-  if (!response) await sequelize_context.CreateDatabaseIfNotExists();
+  const result = await sequelize.Autenticate();
+  // const response = await sequelize_context.Autenticate();
+  // if (!response) await sequelize_context.CreateDatabaseIfNotExists();
+  // await sequelize_context.CreateDatabaseIfNotExists();
 };

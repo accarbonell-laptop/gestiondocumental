@@ -1,39 +1,39 @@
 {
-	"name": "gestiondocumental",
-	"version": "1.0.0",
-	"description": "Sistema Gestion Documental",
-	"main": "app.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/accarbonell-laptop/gestiondocumental.git"
-	},
-	"author": "Union Digital",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/accarbonell-laptop/gestiondocumental/issues"
-	},
-	"homepage": "https://github.com/accarbonell-laptop/gestiondocumental#readme",
-	"dependencies": {
-		"body-parser": "^1.19.0",
-		"cors": "^2.8.5",
-		"dotenv": "^8.2.0",
-		"express": "^4.17.1",
-		"jsonwebtoken": "^8.5.1",
-		"md5": "^2.3.0",
-		"moment": "^2.27.0",
-		"morgan": "^1.10.0",
-		"mysql2": "^2.1.0",
-		"pm2": "^4.5.0",
-		"sequelize": "^6.3.5",
-		"socket.io": "^2.3.0",
-		"swagger-jsdoc": "^5.0.0",
-		"swagger-ui-express": "^4.1.4",
-		"tedious": "^9.2.1"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.4"
-	}
+  "name": "gestiondocumental",
+  "version": "1.0.0",
+  "description": "Sistema Gestion Documental",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accarbonell-laptop/gestiondocumental.git"
+  },
+  "author": "Union Digital",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/accarbonell-laptop/gestiondocumental/issues"
+  },
+  "homepage": "https://github.com/accarbonell-laptop/gestiondocumental#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "moment": "^2.27.0",
+    "morgan": "^1.10.0",
+    "socket.io": "^2.3.0",
+    "swagger-jsdoc": "^5.0.0",
+    "swagger-ui-express": "^4.1.4",
+    "sequelize": "^6.3.5",
+    "tedious": "^9.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
