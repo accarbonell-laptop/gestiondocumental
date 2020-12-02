@@ -13,26 +13,7 @@ const sequelize_context = new Sequelize(
     host: process.env.DB_HOST || '127.0.0.1',
     port: process.env.DB_PORT || '1433',
     dialect: 'mssql',
-    // operatorsAliases: false,
-    // pool: {
-    //   max: 30,
-    //   min: 20,
-    //   acquire: 30000,
-    //   idle: 10000
-    // },
     logging: true
-    // dialectOptions: {
-    //   // useUTC: false, // for reading from database
-    //   dateStrings: true,
-    //   typeCast: function (field, next) {
-    //     // for reading from database
-    //     if (field.type === 'DATETIME') {
-    //       return field.string();
-    //     }
-    //     return next();
-    //   }
-    // },
-    // timezone: '-04:00' // for writing to database
   }
 );
 
@@ -51,15 +32,6 @@ exports.CreateDatabaseIfNotExists = async () => {
   try {
     const dbName = process.env.DB_SCHEMA || 'gestiondocumental';
     const mssql = await this.MSSQLConnection();
-
-    // mssql.execSql(`
-    // IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '${dbName}')
-    //   BEGIN
-    //     CREATE DATABASE ${dbName}
-    //   END
-    // `);
-    // ConsolaInfo('Database has been created...');
-    // await this.Autenticate();
   } catch (error) {
     ConsolaError('Database can not be create or checked: ' + error);
   }
