@@ -1,22 +1,21 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
 
-const favoritos = sequelize.define('Favoritos', {
-  // Model attributes are defined here
-  IdCliente: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+const sequelize = require('../context/sequelize');
+const sequelize_context = sequelize.GetContext();
+
+const favorito = sequelize.define(
+  'favorito',
+  {
+    _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    cliente: { type: DataTypes.INTEGER, allowNull: false },
+    usuario: { type: DataTypes.INTEGER, allowNull: false },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
-  Usuario_Id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  }
-});
-
-// `sequelize.define` also returns the model
-console.log(favoritos === sequelize.models.favoritos); // true
+  //esto es para que no te cambie el nombre (freezeTableName) y el otro es para cuando lo borres (deletedAt)
+  { freezeTableName: true, paranoid: true }
+);
 
 module.exports = {
-  favoritos: favoritos
+  favorito: favorito
 };

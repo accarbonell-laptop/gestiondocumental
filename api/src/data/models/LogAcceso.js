@@ -1,22 +1,21 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
 
-const logAcceso = sequelize.define('logAcceso', {
-  // Model attributes are defined here
-  FechaAcceso: {
-    type: DataTypes.DATE,
-    allowNull: false
+const sequelize = require('../context/sequelize');
+const sequelize_context = sequelize.GetContext();
+
+const logacceso = sequelize.define(
+  'logacceso',
+  {
+    _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    fechaAcceso: { type: DataTypes.DATE, allowNull: false },
+    usuario: { type: DataTypes.INTEGER },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
-  Usuario_Id: {
-    type: DataTypes.INTEGER
-    //allowNull: false
-    // allowNull defaults to true
-  }
-});
-
-// `sequelize.define` also returns the model
-console.log(logAcceso === sequelize.models.logAcceso); // true
+  //esto es para que no te cambie el nombre (freezeTableName) y el otro es para cuando lo borres (deletedAt)
+  { freezeTableName: true, paranoid: true }
+);
 
 module.exports = {
-  logAcceso: logAcceso
+  logacceso: logacceso
 };

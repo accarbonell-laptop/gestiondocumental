@@ -1,50 +1,25 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
 
-const usuario = sequelize.define('usuario', {
-  // Model attributes are defined here
-  Nombre: {
-    type: DataTypes.STRING(40),
-    allowNull: false
-  },
-  CorreoElectronico: {
-    type: DataTypes.STRING
+const sequelize = require('../context/sequelize');
+const sequelize_context = sequelize.GetContext();
 
-    // allowNull defaults to true
+const usuario = sequelize.define(
+  'usuario',
+  {
+    _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    nombre: { type: DataTypes.STRING(40), allowNull: false },
+    correo_electronico: { type: DataTypes.STRING },
+    contrasena: { type: DataTypes.STRING, allowNull: false },
+    activo: { type: DataTypes.BOOLEAN, allowNull: false },
+    supervisor: { type: DataTypes.BOOLEAN },
+    fecha_ultimo_acceso: { type: DataTypes.DATE },
+    rol_id: { type: DataTypes.INTEGER },
+    supervisor: { type: DataTypes.INTEGER, allowNull: false },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
-  Contraseña: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  EstaActivo: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-  },
-  EsSupervisor: {
-    type: DataTypes.BOOLEAN
-
-    // allowNull defaults to true
-  },
-  FechaUltimoAcceso: {
-    type: DataTypes.DATE
-
-    // allowNull defaults to true
-  },
-  RolId: {
-    type: DataTypes.INTEGER
-
-    // allowNull defaults to true
-  },
-  SupervisorId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  }
-});
-
-// `sequelize.define` also returns the model
-console.log(usuario === sequelize.models.usuario); // true
-
+  { freezeTableName: true, paranoid: true }
+);
 module.exports = {
   usuario: usuario
 };

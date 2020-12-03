@@ -1,69 +1,29 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
 
-const notificacion = sequelize.define('notificacion', {
-  // Model attributes are defined here
-  Motivo: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  Cliente: {
-    type: DataTypes.STRING
+const sequelize = require('../context/sequelize');
+const sequelize_context = sequelize.GetContext();
 
-    // allowNull defaults to true
+const notificacion = sequelize.define(
+  'notificacion',
+  {
+    _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    motivo: { type: DataTypes.STRING, allowNull: false },
+    cliente: { type: DataTypes.INTEGER },
+    codigocopextel: { type: DataTypes.STRING, allowNull: false },
+    reup: { type: DataTypes.STRING, allowNull: false },
+    contrato: { type: DataTypes.STRING },
+    estado: { type: DataTypes.INTEGER },
+    fecha: { type: DataTypes.DATE },
+    respondida: { type: DataTypes.BOOLEAN, allowNull: false },
+    vista: { type: DataTypes.BOOLEAN, allowNull: false },
+    documento: { type: DataTypes.INTEGER, allowNull: false },
+    usuario_aprobador: { type: DataTypes.INTEGER, allowNull: false },
+    usuario_solicita: { type: DataTypes.INTEGER, allowNull: false },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
-  CodigoCopextel: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  REUP: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  Contrato: {
-    type: DataTypes.STRING
-
-    // allowNull defaults to true
-  },
-  Estado: {
-    type: DataTypes.INTEGER
-
-    // allowNull defaults to true
-  },
-  Fecha: {
-    type: DataTypes.DATE
-
-    // allowNull defaults to true
-  },
-  Respondida: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  VistaPorMi: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  Documento_Id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  UsuarioAprobador_Id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  UsuarioSolicita_Id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  }
-});
-
-// `sequelize.define` also returns the model
-console.log(notificacion === sequelize.models.notificacion); // true
+  { freezeTableName: true, paranoid: true }
+);
 
 module.exports = {
   notificacion: notificacion
