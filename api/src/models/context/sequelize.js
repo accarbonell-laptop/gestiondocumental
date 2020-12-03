@@ -1,7 +1,7 @@
 'use strict';
 
 const { Sequelize } = require('sequelize');
-var { ConsolaError, ConsolaInfo } = require('../utils/tools');
+var { ConsolaError, ConsolaInfo } = require('../../utils/tools');
 const tedious = require('tedious');
 
 //Passing parameters separately (other dialects: one of 'mysql' | 'mariadb' | 'postgres' | 'mssql')

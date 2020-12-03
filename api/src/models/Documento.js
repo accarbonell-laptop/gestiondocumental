@@ -1,55 +1,26 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
 
-const documento = sequelize.define('documento', {
-  // Model attributes are defined here
-  Nombre: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  Descripcion: {
-    type: DataTypes.STRING
+const sequelize = require('../models/context/sequelize');
+const sequelize_context = sequelize.GetContext();
 
-    // allowNull defaults to true
+const documento = sequelize_context.define(
+  'documento',
+  {
+    _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+    nombre: { type: DataTypes.STRING, allowNull: false },
+    descripcion: { type: DataTypes.STRING, allowNull: true },
+    tipo: { type: DataTypes.INTEGER, allowNull: false },
+    estado: { type: DataTypes.INTEGER },
+    data: { type: DataTypes.BLOB, allowNull: false },
+    cliente: { type: DataTypes.INTEGER, allowNull: true },
+    contrato: { type: DataTypes.INTEGER, allowNull: false },
+    usuario: { type: DataTypes.INTEGER, allowNull: false },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
-  Tipo: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  Estado: {
-    type: DataTypes.INTEGER
-
-    // allowNull defaults to true
-  },
-  FechaCreacion: {
-    type: DataTypes.DATE
-
-    // allowNull defaults to true
-  },
-  Data: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  IdCliente: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  IdContrato: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  },
-  Usuario_Id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-    // allowNull defaults to true
-  }
-});
-
-// `sequelize.define` also returns the model
-console.log(documento === sequelize.models.documento); // true
+  //esto es para que no te cambie el nombre (freezeTableName) y el otro es para cuando lo borres (deletedAt)
+  { freezeTableName: true, paranoid: true }
+);
 
 module.exports = {
   documento: documento

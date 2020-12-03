@@ -1,3 +1,6 @@
-Modelo y cosas de Sequelize
-https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html#instance-method-add
-https://sequelize.org/v4/manual/tutorial/instances.html#working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once-
+> Modelo y cosas de Sequelize
+  https://sequelize.org/master/class/lib/associations/has-many.js~HasMany.html#instance-method-add
+  https://sequelize.org/v4/manual/tutorial/instances.html#working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once-
+
+> Tipos de Datos a usar en Sequelize para MSSQL
+  https://sequelize.org/v5/file/lib/dialects/mssql/data-types.js.html

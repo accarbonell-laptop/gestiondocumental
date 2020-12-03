@@ -28,7 +28,7 @@ app.use(express.json());
 //TODO: Definir routes
 //? EJEMPLO app.use("/api", require("./routes/route_bank"));
 
-var sequelize = require('./models/sequelize');
+var sequelize = require('./models/context/sequelize');
 
 //ficheros estaticos
 ConsolaLog(__dirname);
