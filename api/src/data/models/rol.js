@@ -3,24 +3,24 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../context/sequelize');
 const sequelize_context = sequelize.GetContext();
 
-const permisos = sequelize.define(
-  'permisos',
+const { usuario } = require('./usuario');
+const { permiso } = require('./permiso');
+
+const rol = sequelize_context.define(
+  'rol',
   {
     _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     nombre: { type: DataTypes.STRING, allowNull: false },
-    tipo: { type: DataTypes.INTEGER },
-    acceso: { type: DataTypes.BOOLEAN },
-    inserta: { type: DataTypes.BOOLEAN },
-    elimina: { type: DataTypes.BOOLEAN },
-    modifica: { type: DataTypes.BOOLEAN },
-    lee: { type: DataTypes.BOOLEAN },
-    rol_id: { type: DataTypes.INTEGER },
+    esta_activo: { type: DataTypes.BOOLEAN },
     createdAt: Sequelize.DATE,
     updatedAt: Sequelize.DATE
   },
   { freezeTableName: true, paranoid: true }
 );
 
+rol.usuarios = rol.hasMany(usuario);
+rol.permisos = rol.hasMany(permiso);
+
 module.exports = {
-  permisos: permisos
+  rol: rol
 };

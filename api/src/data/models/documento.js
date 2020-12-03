@@ -3,6 +3,9 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../context/sequelize');
 const sequelize_context = sequelize.GetContext();
 
+const { notificacion } = require('./notificacion');
+const { usuario } = require('./usuario');
+
 const documento = sequelize_context.define(
   'documento',
   {
@@ -21,6 +24,9 @@ const documento = sequelize_context.define(
   //esto es para que no te cambie el nombre (freezeTableName) y el otro es para cuando lo borres (deletedAt)
   { freezeTableName: true, paranoid: true }
 );
+
+documento.usuario = documento.belongsTo(usuario);
+documento.notificaciones = documento.hasMany(notificacion, { onDelete: 'CASCADE' });
 
 module.exports = {
   documento: documento

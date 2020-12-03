@@ -3,7 +3,13 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../context/sequelize');
 const sequelize_context = sequelize.GetContext();
 
-const usuario = sequelize.define(
+const { documento } = require('./documento');
+const { favorito } = require('./favoritos');
+const { logacceso } = require('./logacceso');
+const { notificacion } = require('./notificacion');
+const { rol } = require('./rol');
+
+const usuario = sequelize_context.define(
   'usuario',
   {
     _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
@@ -11,7 +17,7 @@ const usuario = sequelize.define(
     correo_electronico: { type: DataTypes.STRING },
     contrasena: { type: DataTypes.STRING, allowNull: false },
     activo: { type: DataTypes.BOOLEAN, allowNull: false },
-    supervisor: { type: DataTypes.BOOLEAN },
+    es_supervisor: { type: DataTypes.BOOLEAN },
     fecha_ultimo_acceso: { type: DataTypes.DATE },
     rol_id: { type: DataTypes.INTEGER },
     supervisor: { type: DataTypes.INTEGER, allowNull: false },
@@ -20,6 +26,16 @@ const usuario = sequelize.define(
   },
   { freezeTableName: true, paranoid: true }
 );
+
+usuario.documentos = usuario.hasMany(documento, { onDelete: 'CASCADE' });
+usuario.favoritos = usuario.hasMany(favorito, { onDelete: 'CASCADE' });
+usuario.logs = usuario.hasMany(logacceso, { onDelete: 'CASCADE' });
+
+usuario.supervisor = usuario.hasOne(usuario);
+usuario.subordinados = usuario.hasMany(usuario);
+
+usuario.rol = usuario.hasOne(rol);
+
 module.exports = {
   usuario: usuario
 };
