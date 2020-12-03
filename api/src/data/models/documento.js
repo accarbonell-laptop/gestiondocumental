@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = require('../models/context/sequelize');
+const sequelize = require('../context/sequelize');
 const sequelize_context = sequelize.GetContext();
 
 const documento = sequelize_context.define(
