@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const Notificacion = sequelize.define('Notificacion', {
+const notificacion = sequelize.define('notificacion', {
   // Model attributes are defined here
   Motivo: {
     type: DataTypes.STRING,
@@ -63,4 +63,8 @@ const Notificacion = sequelize.define('Notificacion', {
 });
 
 // `sequelize.define` also returns the model
-console.log(Notificacion === sequelize.models.Notificacion); // true
+console.log(notificacion === sequelize.models.notificacion); // true
+
+module.exports = {
+  notificacion: notificacion
+};

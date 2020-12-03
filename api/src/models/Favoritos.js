@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const Favoritos = sequelize.define('Favoritos', {
+const favoritos = sequelize.define('Favoritos', {
   // Model attributes are defined here
   IdCliente: {
     type: DataTypes.INTEGER,
@@ -15,4 +15,8 @@ const Favoritos = sequelize.define('Favoritos', {
 });
 
 // `sequelize.define` also returns the model
-console.log(Favoritos === sequelize.models.Favoritos); // true
+console.log(favoritos === sequelize.models.favoritos); // true
+
+module.exports = {
+  favoritos: favoritos
+};

@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const Usuario = sequelize.define('Usuario', {
+const usuario = sequelize.define('usuario', {
   // Model attributes are defined here
   Nombre: {
     type: DataTypes.STRING(40),
@@ -43,4 +43,8 @@ const Usuario = sequelize.define('Usuario', {
 });
 
 // `sequelize.define` also returns the model
-console.log(Usuario === sequelize.models.Usuario); // true
+console.log(usuario === sequelize.models.usuario); // true
+
+module.exports = {
+  usuario: usuario
+};

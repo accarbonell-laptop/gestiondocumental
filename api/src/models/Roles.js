@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const Roles = sequelize.define('Roles', {
+const roles = sequelize.define('roles', {
   // Model attributes are defined here
   Nombre: {
     type: DataTypes.STRING,
@@ -15,4 +15,8 @@ const Roles = sequelize.define('Roles', {
 });
 
 // `sequelize.define` also returns the model
-console.log(Roles === sequelize.models.Roles); // true
+console.log(roles === sequelize.models.roles); // true
+
+module.exports = {
+  roles: roles
+};

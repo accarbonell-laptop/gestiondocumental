@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const PermisosAFuncionalidades = sequelize.define('PermisosAFuncionalidades', {
+const permisosAFuncionalidades = sequelize.define('permisosAFuncionalidades', {
   // Model attributes are defined here
   Nombre: {
     type: DataTypes.STRING,
@@ -33,4 +33,8 @@ const PermisosAFuncionalidades = sequelize.define('PermisosAFuncionalidades', {
 });
 
 // `sequelize.define` also returns the model
-console.log(PermisosAFuncionalidades === sequelize.models.PermisosAFuncionalidades); // true
+console.log(permisosAFuncionalidades === sequelize.models.permisosAFuncionalidades); // true
+
+module.exports = {
+  permisosAFuncionalidades: permisosAFuncionalidades
+};

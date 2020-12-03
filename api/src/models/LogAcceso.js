@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const LogAcceso = sequelize.define('LogAcceso', {
+const logAcceso = sequelize.define('logAcceso', {
   // Model attributes are defined here
   FechaAcceso: {
     type: DataTypes.DATE,
@@ -15,4 +15,8 @@ const LogAcceso = sequelize.define('LogAcceso', {
 });
 
 // `sequelize.define` also returns the model
-console.log(LogAcceso === sequelize.models.LogAcceso); // true
+console.log(logAcceso === sequelize.models.logAcceso); // true
+
+module.exports = {
+  logAcceso: logAcceso
+};
