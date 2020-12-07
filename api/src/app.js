@@ -45,6 +45,10 @@ http.listen(app.get('port'), () => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Todo fine...');
+});
+
 startServer = async () => {
   const result = await sequelize.Autenticate();
 

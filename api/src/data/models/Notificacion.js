@@ -1,12 +1,12 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = require('../context/sequelize');
-const sequelize_context = sequelize.GetContext();
+const context = sequelize.GetContext();
 
 const { documento } = require('./documento');
 const { usuario } = require('./usuario');
 
-const notificacion = sequelize_context.define(
+const notificacion = context.define(
   'notificacion',
   {
     _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },

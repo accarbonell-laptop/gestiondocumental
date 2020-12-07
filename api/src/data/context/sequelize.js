@@ -41,8 +41,8 @@ exports.CreateDatabaseIfNotExists = async () => {
 exports.Autenticate = async () => {
   try {
     await sequelize_context.authenticate();
-    await sequelize_context.sync();
     ConsolaInfo('Connection has been established successfully.');
+    await this.SyncCompleteModel();
     return true;
   } catch (error) {
     ConsolaError('Unable to connect to the database: ' + error);
@@ -54,6 +54,7 @@ exports.Autenticate = async () => {
 exports.SyncCompleteModel = async () => {
   try {
     await sequelize_context.sync();
+
     ConsolaInfo('All models were synchronized successfully.');
   } catch (error) {
     ConsolaError('All models can not be synchronized: ' + error);
