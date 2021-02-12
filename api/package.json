@@ -27,13 +27,15 @@
     "md5": "^2.3.0",
     "moment": "^2.27.0",
     "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "pm2": "^4.5.4",
+    "sequelize": "^6.3.5",
     "socket.io": "^2.3.0",
     "swagger-jsdoc": "^5.0.0",
     "swagger-ui-express": "^4.1.4",
-    "sequelize": "^6.3.5",
     "tedious": "^9.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.7"
   }
 }
