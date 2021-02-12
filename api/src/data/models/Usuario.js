@@ -1,14 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = require('../context/sequelize');
-const context = sequelize.GetContext();
+const sequelize_context = sequelize.GetContext();
 
 const { documento } = require('./documento');
 const { favorito } = require('./favoritos');
 const { logacceso } = require('./logacceso');
+const { notificacion } = require('./notificacion');
 const { rol } = require('./rol');
 
-const usuario = context.define(
+const usuario = sequelize_context.define(
   'usuario',
   {
     _id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
